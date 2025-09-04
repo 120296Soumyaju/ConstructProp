@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { SERVICES } from '../constants';
+import { SITE_CONTENT } from '../content';
 import type { Service } from '../types';
 
 const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
@@ -21,14 +21,14 @@ const Services: React.FC = () => {
     <section id="services" className="py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-slate-900">Our Services</h2>
+          <h2 className="text-4xl font-extrabold text-slate-900">{SITE_CONTENT.services.title}</h2>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-            From concept to completion, we offer a comprehensive range of services.
+            {SITE_CONTENT.services.subtitle}
           </p>
           <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {SERVICES.map((service, index) => (
+          {SITE_CONTENT.services.items.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NAV_LINKS } from '../constants';
+import { SITE_CONTENT } from '../content';
 import type { NavLink } from '../types';
 
 const Header: React.FC = () => {
@@ -15,7 +15,7 @@ const Header: React.FC = () => {
       let currentSection = '#home';
       const scrollY = window.scrollY;
 
-      NAV_LINKS.forEach(link => {
+      SITE_CONTENT.navLinks.forEach(link => {
         const section = document.getElementById(link.href.substring(1));
         if (section) {
           // 150px offset to trigger active state a bit before section top
@@ -68,11 +68,11 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
             <a href="#home" onClick={(e) => handleLinkClick(e, '#home')} className="text-2xl font-bold text-slate-900 cursor-pointer">
-              Construct<span className="text-amber-500">Pro</span>
+              {SITE_CONTENT.header.title}<span className="text-amber-500">{SITE_CONTENT.header.titleHighlight}</span>
             </a>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            {NAV_LINKS.map((link: NavLink) => (
+            {SITE_CONTENT.navLinks.map((link: NavLink) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -87,7 +87,7 @@ const Header: React.FC = () => {
           </nav>
           <div className="hidden md:block">
             <a href="#contact" onClick={(e) => handleLinkClick(e, '#contact')} className="inline-block bg-amber-500 text-white font-semibold px-5 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 shadow-sm cursor-pointer">
-              Get a Quote
+              {SITE_CONTENT.header.quoteButton}
             </a>
           </div>
           <div className="md:hidden">
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">{SITE_CONTENT.header.srOpenMenu}</span>
               <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                 {isOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -112,7 +112,7 @@ const Header: React.FC = () => {
       {/* Mobile Menu */}
       <div id="mobile-menu" className={`${isOpen ? 'max-h-96' : 'max-h-0'} md:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {NAV_LINKS.map((link: NavLink) => (
+          {SITE_CONTENT.navLinks.map((link: NavLink) => (
             <a
               key={link.href}
               href={link.href}
@@ -125,7 +125,7 @@ const Header: React.FC = () => {
             </a>
           ))}
           <a href="#contact" onClick={(e) => handleLinkClick(e, '#contact')} className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 mt-2 cursor-pointer">
-            Get a Quote
+            {SITE_CONTENT.header.quoteButton}
           </a>
         </div>
       </div>

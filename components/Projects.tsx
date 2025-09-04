@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { PROJECTS } from '../constants';
+import { SITE_CONTENT } from '../content';
 import type { Project } from '../types';
 import CloseIcon from './icons/CloseIcon';
 
@@ -50,7 +50,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-slate-500 hover:text-slate-800 transition-colors z-10 p-1 bg-white/50 rounded-full"
-          aria-label="Close project details"
+          aria-label={SITE_CONTENT.projects.modal.closeButtonLabel}
         >
           <CloseIcon className="w-6 h-6" />
         </button>
@@ -60,11 +60,11 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
           <h2 id="project-modal-title" className="text-3xl font-bold text-slate-900 mb-4">{project.title}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-600 mb-6 border-b border-t border-slate-200 py-4">
             <div>
-              <strong className="block text-slate-800">Client:</strong>
+              <strong className="block text-slate-800">{SITE_CONTENT.projects.modal.clientLabel}</strong>
               <span>{project.client}</span>
             </div>
             <div>
-              <strong className="block text-slate-800">Location:</strong>
+              <strong className="block text-slate-800">{SITE_CONTENT.projects.modal.locationLabel}</strong>
               <span>{project.location}</span>
             </div>
           </div>
@@ -80,11 +80,11 @@ const Projects: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const categories = ['All', ...Array.from(new Set(PROJECTS.map(p => p.category)))];
+  const categories = ['All', ...Array.from(new Set(SITE_CONTENT.projects.items.map(p => p.category)))];
 
   const filteredProjects = activeFilter === 'All'
-    ? PROJECTS
-    : PROJECTS.filter(project => project.category === activeFilter);
+    ? SITE_CONTENT.projects.items
+    : SITE_CONTENT.projects.items.filter(project => project.category === activeFilter);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -96,9 +96,9 @@ const Projects: React.FC = () => {
       <section id="projects" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-extrabold text-slate-900">Featured Projects</h2>
+            <h2 className="text-4xl font-extrabold text-slate-900">{SITE_CONTENT.projects.title}</h2>
             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-              A glimpse into our portfolio of successfully completed projects.
+              {SITE_CONTENT.projects.subtitle}
             </p>
             <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
           </div>

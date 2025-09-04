@@ -1,5 +1,5 @@
 import React from 'react';
-import { NAV_LINKS } from '../constants';
+import { SITE_CONTENT } from '../content';
 import FacebookIcon from './icons/FacebookIcon';
 import TwitterIcon from './icons/TwitterIcon';
 import LinkedInIcon from './icons/LinkedInIcon';
@@ -20,18 +20,18 @@ const Footer: React.FC = () => {
           {/* About Section */}
           <div className="md:col-span-2 lg:col-span-1">
             <h3 className="text-2xl font-bold text-white mb-4">
-              Construct<span className="text-amber-500">Pro</span>
+              {SITE_CONTENT.footer.about.title}<span className="text-amber-500">{SITE_CONTENT.footer.about.titleHighlight}</span>
             </h3>
             <p className="text-slate-400 leading-relaxed">
-              Building the Future, One Project at a Time. Our commitment is to quality, integrity, and client satisfaction.
+              {SITE_CONTENT.footer.about.description}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">{SITE_CONTENT.footer.quickLinksTitle}</h4>
             <ul className="space-y-2">
-              {NAV_LINKS.map(link => (
+              {SITE_CONTENT.navLinks.map(link => (
                 <li key={link.href}>
                   <a href={link.href} className="hover:text-amber-400 transition-colors duration-300">
                     {link.label}
@@ -43,17 +43,17 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Contact Us</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">{SITE_CONTENT.footer.contactTitle}</h4>
             <ul className="space-y-2 text-slate-400">
-              <li>123 Construction Ave, Metropolis, USA</li>
-              <li>(123) 456-7890</li>
-              <li>contact@constructpro.com</li>
+              <li>{SITE_CONTENT.contact.info.address.full}</li>
+              <li>{SITE_CONTENT.contact.info.phone}</li>
+              <li>{SITE_CONTENT.contact.info.email}</li>
             </ul>
           </div>
 
           {/* Social Media */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">{SITE_CONTENT.footer.followUsTitle}</h4>
             <div className="flex space-x-4">
               {socialLinks.map(({ href, icon: Icon, name }) => (
                 <a
@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="bg-slate-900 py-6">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500">
-          <p>&copy; {new Date().getFullYear()} ConstructPro. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {SITE_CONTENT.footer.copyright}</p>
         </div>
       </div>
     </footer>

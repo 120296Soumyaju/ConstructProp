@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { TESTIMONIALS } from '../constants';
+import { SITE_CONTENT } from '../content';
 import type { Testimonial } from '../types';
 import QuoteIcon from './icons/QuoteIcon';
 
@@ -25,14 +25,14 @@ const Testimonials: React.FC = () => {
     <section id="testimonials" className="py-20 bg-slate-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-extrabold text-slate-900">What Our Clients Say</h2>
+          <h2 className="text-4xl font-extrabold text-slate-900">{SITE_CONTENT.testimonials.title}</h2>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-            Real stories from satisfied partners who trusted us with their vision.
+            {SITE_CONTENT.testimonials.subtitle}
           </p>
           <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((testimonial, index) => (
+          {SITE_CONTENT.testimonials.items.map((testimonial, index) => (
             <TestimonialCard key={index} testimonial={testimonial} />
           ))}
         </div>
