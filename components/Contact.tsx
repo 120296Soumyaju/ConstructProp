@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
 
   try {
       /* const response = await fetch("http://localhost:8000/send_quote.php",*/
-    const response = await fetch("benoittesting/send_quote.php", { 
+    const response = await fetch("https://rubitcube.com/benoittesting/send_quote.php", { 
       method: "POST",
       headers: { 
         "Content-Type": "application/x-www-form-urlencoded" 
