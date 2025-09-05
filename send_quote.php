@@ -1,6 +1,6 @@
 <?php
 // -------------------------
-//  ConstructProp Quote Form
+//  BenoitConstructionp Quote Form
 // -------------------------
 
 // Debugging (disable in production)
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Recipients
         $from = getenv('MAIL_FROM_ADDRESS') ?: $email;
-        $mail->setFrom($from, 'ConstructProp Quote Request');
+        $mail->setFrom($from, 'BenoitConstruction Quote Request');
 
         $toAddresses = explode(',', getenv('MAIL_TO_ADDRESS') ?: $from);
         foreach ($toAddresses as $toAddress) {
@@ -141,4 +141,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo json_encode(['status' => 'error', 'message' => 'Method not allowed.']);
     error_log("Request Method: " . $_SERVER["REQUEST_METHOD"]);
 }
-    

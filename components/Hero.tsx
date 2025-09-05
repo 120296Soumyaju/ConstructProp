@@ -75,13 +75,20 @@ const Hero: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="absolute inset-0 bg-black opacity-60"></div>
+      <div className="absolute inset-0 bg-black opacity-40"></div>
 
       <div className="relative z-10 text-center px-4">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 fade-in">
-          {SITE_CONTENT.hero.titleL1} <br />
-          <span className="text-amber-400">{SITE_CONTENT.hero.titleL2}</span>
+        {/* Main Title */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-2 text-white drop-shadow-2xl fade-in">
+          {SITE_CONTENT.hero.titleL1}
         </h1>
+
+        {/* Sub Title (same size but amber) */}
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 text-amber-400 drop-shadow-2xl fade-in">
+          {SITE_CONTENT.hero.titleL2}
+        </h2>
+
+        {/* Subtitle (smaller paragraph) */}
         <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-slate-200 slide-up">
           {SITE_CONTENT.hero.subtitle}
         </p>

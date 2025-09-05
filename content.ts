@@ -90,7 +90,7 @@ const PROJECTS: Project[] = [
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "ConstructPro transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
+    quote: "BenoitConstruction transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
     name: 'Jane Doe',
     title: 'CEO, Innovate Corp',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',
@@ -111,12 +111,12 @@ const TESTIMONIALS: Testimonial[] = [
 
 export const SITE_CONTENT = {
   siteMetadata: {
-    title: 'ConstructPro - Premier Construction & Renovation Services',
-    description: 'ConstructPro offers expert general contracting, design-build, and renovation services for commercial and residential projects. Building your vision into reality.',
-    author: 'ConstructPro',
+    title: 'BenoitConstruction - Premier Construction & Renovation Services',
+    description: 'BenoitConstruction offers expert general contracting, design-build, and renovation services for commercial and residential projects. Building your vision into reality.',
+    author: 'BenoitConstruction',
     keywords: ['construction', 'general contracting', 'design-build', 'renovation', 'commercial construction', 'residential construction', 'construction company'],
-    siteUrl: 'https://www.constructpro.com', // Placeholder URL for canonical link and social sharing
-    logoUrl: 'https://www.constructpro.com/logo.png', // Placeholder URL for company logo
+    siteUrl: 'https://www.benoitconstruction.com', // Placeholder URL for canonical link and social sharing
+    logoUrl: 'https://www.benoitconstruction.com/logo.png', // Placeholder URL for company logo
     ogImage: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&h=630&auto=format&fit=crop', // A 1.91:1 aspect ratio version of the hero image for Open Graph
   },
   navLinks: NAV_LINKS,
@@ -149,8 +149,8 @@ export const SITE_CONTENT = {
     }
   },
   about: {
-    title: 'About ConstructPro',
-    paragraph1: 'With over 20 years of experience in the construction industry, ConstructPro has established itself as a leader in delivering exceptional quality and innovative solutions. Our foundation is built on integrity, reliability, and a relentless pursuit of excellence.',
+    title: 'About BenoitConstruction',
+    paragraph1: 'With over 20 years of experience in the construction industry, BenoitConstruction has established itself as a leader in delivering exceptional quality and innovative solutions. Our foundation is built on integrity, reliability, and a relentless pursuit of excellence.',
     paragraph2: 'Our mission is to build more than just structures; we build lasting relationships with our clients by exceeding their expectations and earning their trust through outstanding performance by every member of our construction team.',
     ctaButton: 'Work With Us',
     imageAlt: 'Construction team collaborating on blueprints at a worksite',
@@ -169,14 +169,14 @@ export const SITE_CONTENT = {
         address: {
           street: '123 Construction Ave',
           city: 'Metropolis',
-          country: 'USA',
+          country: 'UAE',
           zip: '10101',
           full: '123 Construction Ave, Metropolis, USA 10101',
         },
         phoneLabel: 'Phone:',
         phone: '(123) 456-7890',
         emailLabel: 'Email:',
-        email: 'contact@constructpro.com',
+        email: 'contact@benoitconstruction.com',
         hoursLabel: 'Business Hours:',
         hours: 'Mon-Fri, 8:00 AM - 5:00 PM',
     },
@@ -200,6 +200,8 @@ export const SITE_CONTENT = {
     quickLinksTitle: 'Quick Links',
     contactTitle: 'Contact Us',
     followUsTitle: 'Follow Us',
-    copyright: 'ConstructPro. All Rights Reserved.',
+    copyright: 'BenoitConstruction. All Rights Reserved.',
+    developedBy: 'Developed by RubitCube Information Technology',
+    developerUrl: 'https://rubitcube.com',
   }
 };

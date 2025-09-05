@@ -3,7 +3,7 @@
 /**
  * Design System & UI/UX Theme
  * 
- * This file centralizes the design tokens for the ConstructPro application.
+ * This file centralizes the design tokens for the BenoitConstruction application.
  * It serves as a single source of truth for colors, typography, spacing, and other
  * layout-related values.
  * 

@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
 
 export const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "ConstructPro transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
+    quote: "BenoitConstruction transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
     name: 'Jane Doe',
     title: 'CEO, Innovate Corp',
     avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop',

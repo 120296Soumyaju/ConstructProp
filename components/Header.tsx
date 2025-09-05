@@ -11,31 +11,24 @@ const Header: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
-      // Determine active section
+      // Active section tracking
       let currentSection = "#home";
       const scrollY = window.scrollY;
-
       SITE_CONTENT.navLinks.forEach((link) => {
         const section = document.getElementById(link.href.substring(1));
         if (section) {
-          // 150px offset to trigger active state a bit before section top
           const sectionTop = section.offsetTop;
           if (scrollY >= sectionTop - 150) {
             currentSection = link.href;
           }
         }
       });
-
       setActiveLink(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Run on mount to set initial state
     handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLinkClick = (
@@ -45,75 +38,85 @@ const Header: React.FC = () => {
     e.preventDefault();
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
-
     if (targetElement) {
-      // The header height is 80px (h-20)
       const headerOffset = 80;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
-      // Close mobile menu if open
-      if (isOpen) {
-        setIsOpen(false);
-      }
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      if (isOpen) setIsOpen(false);
     }
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/80 backdrop-blur-sm shadow-md" : "bg-transparent"
-      } fade-in`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
+        ${isScrolled ? "bg-white/80 backdrop-blur-sm shadow-md" : "bg-transparent"}`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
+          {/* Logo */}
           <div className="flex-shrink-0">
             <a
               href="#home"
               onClick={(e) => handleLinkClick(e, "#home")}
-              className="text-2xl font-bold text-slate-900 cursor-pointer focus-visible fade-in"
+              className={`text-2xl font-bold cursor-pointer fade-in ${
+                isScrolled ? "text-slate-900" : "text-white"
+              }`}
             >
               {SITE_CONTENT.header.title}
-              <span className="text-amber-500">
+              <span
+                className={isScrolled ? "text-amber-500" : "text-amber-400"}
+              >
                 {SITE_CONTENT.header.titleHighlight}
               </span>
             </a>
           </div>
+
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
             {SITE_CONTENT.navLinks.map((link: NavLink) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className={`font-medium transition-colors duration-300 cursor-pointer focus-visible ${
+                className={`font-medium transition-colors duration-300 cursor-pointer ${
                   activeLink === link.href
-                    ? "text-amber-500"
-                    : "text-slate-700 hover:text-amber-500"
+                    ? "text-amber-400"
+                    : isScrolled
+                    ? "text-slate-700 hover:text-amber-500"
+                    : "text-white hover:text-amber-400"
                 }`}
               >
                 {link.label}
               </a>
             ))}
           </nav>
+
+          {/* Desktop CTA */}
           <div className="hidden md:block">
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, "#contact")}
-              className="inline-block bg-amber-500 text-white font-semibold px-5 py-3 rounded-md hover:bg-amber-600 transition-fast shadow-sm cursor-pointer focus-visible slide-up"
+              className={`inline-block font-semibold px-5 py-3 rounded-md shadow-sm transition-fast ${
+                isScrolled
+                  ? "bg-amber-500 text-white hover:bg-amber-600"
+                  : "bg-white text-amber-600 hover:bg-slate-100"
+              }`}
             >
               {SITE_CONTENT.header.quoteButton}
             </a>
           </div>
+
+          {/* Mobile Toggle */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-amber-500 hover:bg-slate-100 focus-visible"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${
+                isScrolled
+                  ? "text-slate-700 hover:text-amber-500 hover:bg-slate-100"
+                  : "text-white hover:text-amber-400"
+              }`}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
             >
@@ -144,6 +147,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
       {/* Mobile Menu */}
       <div
         id="mobile-menu"
@@ -157,7 +161,7 @@ const Header: React.FC = () => {
               key={link.href}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-50 transition-fast cursor-pointer focus-visible ${
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === link.href
                   ? "text-amber-500 bg-amber-50"
                   : "text-slate-700 hover:text-amber-500"
@@ -169,7 +173,7 @@ const Header: React.FC = () => {
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, "#contact")}
-            className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 mt-2 cursor-pointer"
+            className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 mt-2"
           >
             {SITE_CONTENT.header.quoteButton}
           </a>

@@ -1,6 +1,6 @@
-# ConstructPro - Modern Construction Website
+# BenoitConstruction - Modern Construction Website
 
-ConstructPro is a sleek, professional, and fully responsive single-page website template designed for a modern construction company. Built with React, TypeScript, and Tailwind CSS, it provides a robust foundation for showcasing services, projects, and company information to attract potential clients.
+BenoitConstruction is a sleek, professional, and fully responsive single-page website template designed for a modern construction company. Built with React, TypeScript, and Tailwind CSS, it provides a robust foundation for showcasing services, projects, and company information to attract potential clients.
 
 ## Key Features
 
@@ -70,12 +70,12 @@ While the project uses the Tailwind CSS CDN (and thus doesn't have a `tailwind.c
 
 ## Components Overview
 
--   **`Header.tsx`**: A fixed, responsive navigation bar with active link highlighting and smooth scroll functionality.
--   **`Hero.tsx`**: The full-screen introductory section with a parallax background and animated text.
--   **`Services.tsx`**: Displays the company's key services in a clean card layout.
--   **`Projects.tsx`**: A filterable portfolio gallery with a clickable modal for viewing project details.
--   **`About.tsx`**: Provides company background and mission statement.
--   **`Testimonials.tsx`**: An interactive carousel showcasing client testimonials.
--   **`Contact.tsx`**: Contains contact information and a form with validation and submission logic.
--   **`Footer.tsx`**: A modern, multi-column footer with navigation, contact info, and social media links.
--   **`icons/`**: A collection of reusable SVG icon components used throughout the application.
+- **`Header.tsx`**: A fixed, responsive navigation bar with active link highlighting and smooth scroll functionality.
+- **`Hero.tsx`**: The full-screen introductory section with a parallax background and animated text.
+- **`Services.tsx`**: Displays the company's key services in a clean card layout.
+- **`Projects.tsx`**: A filterable portfolio gallery with a clickable modal for viewing project details.
+- **`About.tsx`**: Provides company background and mission statement.
+- **`Testimonials.tsx`**: An interactive carousel showcasing client testimonials.
+- **`Contact.tsx`**: Contains contact information and a form with validation and submission logic.
+- **`Footer.tsx`**: A modern, multi-column footer with navigation, contact info, and social media links.
+- **`icons/`**: A collection of reusable SVG icon components used throughout the application.
