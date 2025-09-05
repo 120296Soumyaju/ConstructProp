@@ -55,10 +55,10 @@ export default function QuoteForm() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("http://localhost:8000/send_quote.php", {
+      const response = await fetch("benoittesting/send_quote.php", {
         method: "POST",
-        headers:{
-            "Content-Type": "application/x-www-form-urlencoded" 
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         body: new URLSearchParams(Object.entries(formData)).toString(),
       });
@@ -74,7 +74,8 @@ export default function QuoteForm() {
       if (response.ok && data.status === "success") {
         setSubmitStatus({
           type: "success",
-          message: data.message || "Your quote request has been sent successfully!",
+          message:
+            data.message || "Your quote request has been sent successfully!",
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
@@ -83,7 +84,10 @@ export default function QuoteForm() {
     } catch (error) {
       setSubmitStatus({
         type: "error",
-        message: error instanceof Error ? error.message : "An unexpected error occurred",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
       });
     } finally {
       setIsSubmitting(false);

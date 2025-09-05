@@ -69,7 +69,8 @@ const Contact: React.FC = () => {
   setStatus({ type: null, message: "" });
 
   try {
-    const response = await fetch("http://localhost:8000/send_quote.php", {
+      /* const response = await fetch("http://localhost:8000/send_quote.php",*/
+    const response = await fetch("benoittesting/send_quote.php", { 
       method: "POST",
       headers: { 
         "Content-Type": "application/x-www-form-urlencoded" 
