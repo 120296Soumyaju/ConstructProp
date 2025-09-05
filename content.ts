@@ -193,15 +193,15 @@ export const SITE_CONTENT = {
   },
   footer: {
     about: {
-      title: 'Construct',
-      titleHighlight: 'Pro',
+      title: 'Benoit',
+      titleHighlight: 'Construction',
       description: 'Building the Future, One Project at a Time. Our commitment is to quality, integrity, and client satisfaction.',
     },
     quickLinksTitle: 'Quick Links',
     contactTitle: 'Contact Us',
     followUsTitle: 'Follow Us',
     copyright: 'BenoitConstruction. All Rights Reserved.',
-    developedBy: 'Developed by RubitCube Information Technology',
+    developedBy: 'Developed by RubitCube Information Technology LLC. | UAE | UK | India',
     developerUrl: 'https://rubitcube.com',
   }
 };

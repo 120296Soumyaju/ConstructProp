@@ -86,6 +86,16 @@ const Footer: React.FC = () => {
           <p>
             &copy; {new Date().getFullYear()} {SITE_CONTENT.footer.copyright}
           </p>
+           <p>
+              <a
+                href={SITE_CONTENT.footer.developerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-400 transition-colors duration-300"
+              >
+                {SITE_CONTENT.footer.developedBy}
+              </a>
+            </p>
         </div>
       </div>
     </footer>
