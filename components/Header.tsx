@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { SITE_CONTENT } from '../content';
-import type { NavLink } from '../types';
+import React, { useState, useEffect } from "react";
+import { SITE_CONTENT } from "../content";
+import type { NavLink } from "../types";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState('#home');
+  const [activeLink, setActiveLink] = useState("#home");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
       // Determine active section
-      let currentSection = '#home';
+      let currentSection = "#home";
       const scrollY = window.scrollY;
 
-      SITE_CONTENT.navLinks.forEach(link => {
+      SITE_CONTENT.navLinks.forEach((link) => {
         const section = document.getElementById(link.href.substring(1));
         if (section) {
           // 150px offset to trigger active state a bit before section top
@@ -25,33 +25,37 @@ const Header: React.FC = () => {
           }
         }
       });
-      
+
       setActiveLink(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     // Run on mount to set initial state
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     e.preventDefault();
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
-    
+
     if (targetElement) {
       // The header height is 80px (h-20)
       const headerOffset = 80;
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
 
       // Close mobile menu if open
@@ -61,14 +65,24 @@ const Header: React.FC = () => {
     }
   };
 
-
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-sm shadow-md' : 'bg-transparent'}`}>
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/80 backdrop-blur-sm shadow-md" : "bg-transparent"
+      } fade-in`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
-            <a href="#home" onClick={(e) => handleLinkClick(e, '#home')} className="text-2xl font-bold text-slate-900 cursor-pointer">
-              {SITE_CONTENT.header.title}<span className="text-amber-500">{SITE_CONTENT.header.titleHighlight}</span>
+            <a
+              href="#home"
+              onClick={(e) => handleLinkClick(e, "#home")}
+              className="text-2xl font-bold text-slate-900 cursor-pointer focus-visible fade-in"
+            >
+              {SITE_CONTENT.header.title}
+              <span className="text-amber-500">
+                {SITE_CONTENT.header.titleHighlight}
+              </span>
             </a>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
@@ -77,8 +91,10 @@ const Header: React.FC = () => {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className={`font-medium transition-colors duration-300 cursor-pointer ${
-                  activeLink === link.href ? 'text-amber-500' : 'text-slate-700 hover:text-amber-500'
+                className={`font-medium transition-colors duration-300 cursor-pointer focus-visible ${
+                  activeLink === link.href
+                    ? "text-amber-500"
+                    : "text-slate-700 hover:text-amber-500"
                 }`}
               >
                 {link.label}
@@ -86,23 +102,42 @@ const Header: React.FC = () => {
             ))}
           </nav>
           <div className="hidden md:block">
-            <a href="#contact" onClick={(e) => handleLinkClick(e, '#contact')} className="inline-block bg-amber-500 text-white font-semibold px-5 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 shadow-sm cursor-pointer">
+            <a
+              href="#contact"
+              onClick={(e) => handleLinkClick(e, "#contact")}
+              className="inline-block bg-amber-500 text-white font-semibold px-5 py-3 rounded-md hover:bg-amber-600 transition-fast shadow-sm cursor-pointer focus-visible slide-up"
+            >
               {SITE_CONTENT.header.quoteButton}
             </a>
           </div>
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-amber-500 hover:bg-slate-100 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-amber-500 hover:bg-slate-100 focus-visible"
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
             >
               <span className="sr-only">{SITE_CONTENT.header.srOpenMenu}</span>
-              <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <svg
+                className="h-6 w-6"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16m-7 6h7"
+                  />
                 )}
               </svg>
             </button>
@@ -110,21 +145,32 @@ const Header: React.FC = () => {
         </div>
       </div>
       {/* Mobile Menu */}
-      <div id="mobile-menu" className={`${isOpen ? 'max-h-96' : 'max-h-0'} md:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white`}>
+      <div
+        id="mobile-menu"
+        className={`${
+          isOpen ? "max-h-96" : "max-h-0"
+        } md:hidden overflow-hidden transition-all duration-500 ease-in-out bg-white`}
+      >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {SITE_CONTENT.navLinks.map((link: NavLink) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className={`block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-50 transition-colors duration-300 cursor-pointer ${
-                activeLink === link.href ? 'text-amber-500 bg-amber-50' : 'text-slate-700 hover:text-amber-500'
+              className={`block px-3 py-2 rounded-md text-base font-medium hover:bg-slate-50 transition-fast cursor-pointer focus-visible ${
+                activeLink === link.href
+                  ? "text-amber-500 bg-amber-50"
+                  : "text-slate-700 hover:text-amber-500"
               }`}
             >
               {link.label}
             </a>
           ))}
-          <a href="#contact" onClick={(e) => handleLinkClick(e, '#contact')} className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 mt-2 cursor-pointer">
+          <a
+            href="#contact"
+            onClick={(e) => handleLinkClick(e, "#contact")}
+            className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 transition-colors duration-300 mt-2 cursor-pointer"
+          >
             {SITE_CONTENT.header.quoteButton}
           </a>
         </div>

@@ -121,14 +121,14 @@ export const SITE_CONTENT = {
   },
   navLinks: NAV_LINKS,
   header: {
-    title: 'Construct',
-    titleHighlight: 'Pro',
+    title: 'Benoit',
+    titleHighlight: 'Construction',
     quoteButton: 'Get a Quote',
     srOpenMenu: 'Open main menu',
   },
   hero: {
     titleL1: 'Building Your Vision,',
-    titleL2: 'Creating Reality',
+    titleL2: 'Creating   Reality',
     subtitle: 'We are a team of dedicated professionals committed to delivering high-quality construction projects on time and within budget.',
     ctaButton: 'View Our Work',
     videoUrl: 'https://videos.pexels.com/video-files/3209228/3209228-hd_1920_1080_25fps.mp4',
