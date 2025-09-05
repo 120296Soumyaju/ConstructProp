@@ -5,7 +5,8 @@ import { SITE_CONTENT } from '../content';
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [errors, setErrors] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -47,13 +48,35 @@ const Contact: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
-      // In a real app, you would handle form submission here (e.g., API call)
-      setStatus(SITE_CONTENT.contact.form.successMessage);
+    if (!validateForm() || isLoading) return;
+
+    setIsLoading(true);
+    setStatus({ type: null, message: '' });
+
+    try {
+      // Simulate an API call to a backend
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // To simulate an error, you could check for a specific keyword
+      if (formData.message.toLowerCase().includes('error')) {
+          throw new Error("Simulated server error.");
+      }
+
+      // On successful "submission"
+      setStatus({ type: 'success', message: SITE_CONTENT.contact.form.successMessage });
       setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus(''), 5000);
+
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setStatus({ type: 'error', message: SITE_CONTENT.contact.form.errorMessage });
+    } finally {
+      setIsLoading(false);
+      // Automatically clear the status message after 5 seconds
+      setTimeout(() => {
+        setStatus({ type: null, message: '' });
+      }, 5000);
     }
   };
 
@@ -94,8 +117,31 @@ const Contact: React.FC = () => {
               <textarea name="message" value={formData.message} onChange={handleChange} placeholder={SITE_CONTENT.contact.form.messagePlaceholder} rows={5} className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${errors.message ? 'border-red-500 focus:ring-red-500' : 'border-slate-300 focus:ring-amber-500'}`}></textarea>
               {errors.message && <p className="text-red-600 text-sm mt-1">{errors.message}</p>}
             </div>
-            <button type="submit" className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-md hover:bg-amber-600 transition-colors duration-300">{SITE_CONTENT.contact.form.submitButton}</button>
-            {status && <p className="text-center mt-4 text-green-600">{status}</p>}
+            <button type="submit" disabled={isLoading} className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-md hover:bg-amber-600 transition-colors duration-300 disabled:bg-amber-400 disabled:cursor-not-allowed flex items-center justify-center h-[50px]">
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {SITE_CONTENT.contact.form.submitButtonLoading}
+                </>
+              ) : (
+                SITE_CONTENT.contact.form.submitButton
+              )}
+            </button>
+            {status.message && (
+              <div
+                className={`text-center p-4 rounded-md text-sm font-medium transition-opacity duration-300 ${
+                  status.type === 'success' ? 'bg-green-100 text-green-800' : ''
+                } ${
+                  status.type === 'error' ? 'bg-red-100 text-red-800' : ''
+                }`}
+                role="alert"
+              >
+                {status.message}
+              </div>
+            )}
           </form>
         </div>
       </div>

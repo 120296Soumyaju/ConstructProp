@@ -1,3 +1,4 @@
+
 import type { NavLink, Service, Project, Testimonial } from './types';
 import BuildingIcon from './components/icons/BuildingIcon';
 import WrenchIcon from './components/icons/WrenchIcon';
@@ -130,6 +131,7 @@ export const SITE_CONTENT = {
     titleL2: 'Creating Reality',
     subtitle: 'We are a team of dedicated professionals committed to delivering high-quality construction projects on time and within budget.',
     ctaButton: 'View Our Work',
+    videoUrl: 'https://videos.pexels.com/video-files/3209228/3209228-hd_1920_1080_25fps.mp4',
   },
   services: {
     title: 'Our Services',
@@ -184,7 +186,9 @@ export const SITE_CONTENT = {
       subjectPlaceholder: 'Subject',
       messagePlaceholder: 'Your Message',
       submitButton: 'Send Message',
+      submitButtonLoading: 'Sending...',
       successMessage: 'Thank you for your message! We will get back to you shortly.',
+      errorMessage: 'An error occurred. Please try again later.',
     },
   },
   footer: {
