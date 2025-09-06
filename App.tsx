@@ -20,7 +20,6 @@ const MetaTags: React.FC = () => {
       keywords,
       siteUrl,
       logoUrl,
-      ogImage,
     } = siteMetadata;
 
     // Set document title
@@ -61,14 +60,14 @@ const MetaTags: React.FC = () => {
     setPropertyMetaTag('og:url', siteUrl);
     setPropertyMetaTag('og:title', title);
     setPropertyMetaTag('og:description', description);
-    setPropertyMetaTag('og:image', ogImage);
+    /*setPropertyMetaTag('og:image', ogImage);*/
 
     // Twitter Card meta tags
     setMetaTag('twitter:card', 'summary_large_image');
     setMetaTag('twitter:url', siteUrl);
     setMetaTag('twitter:title', title);
     setMetaTag('twitter:description', description);
-    setMetaTag('twitter:image', ogImage);
+    /*setMetaTag('twitter:image', ogImage);*/
 
     // Canonical Link
     let canonicalLink = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
@@ -98,7 +97,7 @@ const MetaTags: React.FC = () => {
       description: description,
       url: siteUrl,
       logo: logoUrl,
-      image: ogImage,
+      /*image: ogImage,*/
       telephone: contact.info.phone,
       email: contact.info.email,
       website: contact.info.website,
