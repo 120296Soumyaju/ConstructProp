@@ -13,9 +13,14 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: '#F59E0B',
-          light: '#FBBF24',
-          dark: '#D97706',
+          DEFAULT: '#0443F2', // Keeping primary as blue-ribbon
+          light: '#53CBFB',   // Malibu from your palette
+          dark: '#032BA0',    // Darker blue shade
+        },
+        'blue-ribbon': {
+          DEFAULT: '#0443F2', // Defining blue-ribbon as a standalone color
+          light: '#53CBFB',   // Malibu
+          dark: '#032BA0',    // Darker shade
         },
       },
       fontSize: {

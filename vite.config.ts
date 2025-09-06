@@ -6,10 +6,9 @@ export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
       plugins: [react()],
-      base: "/benoittesting/", // 👈 important important for cPanel subfolder deployments
+      base: "/", // 👈 important important for cPanel subfolder deployments
       define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
+        'process.env.React_APP_API_URL': env.React_APP_API_URL
       },
       resolve: {
         alias: {

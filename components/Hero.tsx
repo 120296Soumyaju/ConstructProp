@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="absolute inset-0 bg-black opacity-40"></div>
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
       <div className="relative z-10 text-center px-4">
         {/* Main Title */}
@@ -83,8 +83,10 @@ const Hero: React.FC = () => {
           {SITE_CONTENT.hero.titleL1}
         </h1>
 
-        {/* Sub Title (same size but amber) */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 text-amber-400 drop-shadow-2xl fade-in">
+        {/* Sub Title (same size but blue) */}
+        <h2 
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 text-blue-ribbon drop-shadow-2xl fade-in"
+          >
           {SITE_CONTENT.hero.titleL2}
         </h2>
 
@@ -95,7 +97,7 @@ const Hero: React.FC = () => {
         <a
           href="#projects"
           onClick={handleCtaClick}
-          className="inline-block bg-amber-500 text-white font-bold text-lg px-8 py-4 rounded-md hover:bg-amber-600 transition-fast focus-visible slide-up shadow-lg cursor-pointer"
+          className="inline-block bg-blue-ribbon text-white font-bold text-lg px-8 py-4 rounded-md hover:bg-white transition-fast focus-visible slide-up shadow-lg cursor-pointer"
         >
           {SITE_CONTENT.hero.ctaButton}
         </a>

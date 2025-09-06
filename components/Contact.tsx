@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { SITE_CONTENT } from "../content";
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
@@ -21,8 +28,8 @@ const Contact: React.FC = () => {
   }>({ type: null, message: "" });
 
   // Validate form fields
-  const validateForm = () => {
-    const newErrors = { name: "", email: "", subject: "", message: "" };
+  const validateForm = (): boolean => {
+    const newErrors: FormData = { name: "", email: "", subject: "", message: "" };
     let isValid = true;
 
     if (!formData.name.trim()) {
@@ -32,7 +39,11 @@ const Contact: React.FC = () => {
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
       isValid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})$/.test(
+        formData.email
+      )
+    ) {
       newErrors.email = "Please enter a valid email address.";
       isValid = false;
     }
@@ -55,64 +66,66 @@ const Contact: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name as keyof typeof errors]) {
+    if (errors[name as keyof FormData]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
   // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!validateForm() || isLoading) return;
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!validateForm() || isLoading) return;
 
-  setIsLoading(true);
-  setStatus({ type: null, message: "" });
-
-  try {
-      /* const response = await fetch("http://localhost:8000/send_quote.php",*/
-    const response = await fetch("https://rubitcube.com/benoittesting/send_quote.php", { 
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/x-www-form-urlencoded" 
-      },
-      body: new URLSearchParams(formData as any).toString(),
-    });
-
-    const raw = await response.text(); // ✅ read once
-    let data: any;
+    setIsLoading(true);
+    setStatus({ type: null, message: "" });
 
     try {
-      data = JSON.parse(raw); // attempt JSON parse
-    } catch {
-      throw new Error(`Server returned invalid JSON: ${raw}`);
-    }
-
-    if (response.ok && data.status === "success") {
-      setStatus({
-        type: "success",
-        message: data.message || SITE_CONTENT.contact.form.successMessage,
+      const apiUrl = process.env.REACT_APP_API_URL || // Prefer env variable
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:8000/send_quote.php"
+          : "https://benoit.ae/send_quote.php";
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(formData as any).toString(), // Replace with explicit type
       });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    } else {
-      throw new Error(data.message || "Failed to send request");
-    }
-  } catch (error) {
-    console.error("Submission failed:", error);
-    setStatus({
-      type: "error",
-      message:
-        error instanceof Error
-          ? error.message
-          : SITE_CONTENT.contact.form.errorMessage,
-    });
-  } finally {
-    setIsLoading(false);
-    setTimeout(() => {
-      setStatus({ type: null, message: "" });
-    }, 5000);
-  }
-};
 
+      const raw = await response.text();
+      let data;
+
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        throw new Error(`Server returned invalid JSON: ${raw}`);
+      }
+
+      if (response.ok && data.status === "success") {
+        setStatus({
+          type: "success",
+          message: data.message || SITE_CONTENT.contact.form.successMessage,
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        throw new Error(data.message || "Failed to send request");
+      }
+    } catch (error) {
+      console.error("Submission failed:", error);
+      setStatus({
+        type: "error",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Network error or server unavailable. Please try again later.",
+      });
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => {
+        setStatus({ type: null, message: "" });
+      }, 5000); // Consider making this configurable
+    }
+  };
 
   return (
     <section id="contact" className="py-20 bg-white fade-in">
@@ -124,7 +137,7 @@ const Contact: React.FC = () => {
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto slide-up">
             {SITE_CONTENT.contact.subtitle}
           </p>
-          <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
+          <div className="mt-4 mx-auto w-24 h-1 bg-blue-500 rounded"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -145,6 +158,10 @@ const Contact: React.FC = () => {
               <p>
                 <strong>{SITE_CONTENT.contact.info.emailLabel}</strong>{" "}
                 {SITE_CONTENT.contact.info.email}
+              </p>
+              <p>
+                <strong>{SITE_CONTENT.contact.info.websiteLabel}</strong>{" "}
+                {SITE_CONTENT.contact.info.website}
               </p>
               <p>
                 <strong>{SITE_CONTENT.contact.info.hoursLabel}</strong>{" "}
@@ -169,7 +186,7 @@ const Contact: React.FC = () => {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                   errors.name
                     ? "border-red-500 focus:ring-red-500"
-                    : "border-slate-300 focus:ring-amber-500"
+                    : "border-slate-300 focus:ring-blue-500"
                 }`}
               />
               {errors.name && (
@@ -186,7 +203,7 @@ const Contact: React.FC = () => {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                   errors.email
                     ? "border-red-500 focus:ring-red-500"
-                    : "border-slate-300 focus:ring-amber-500"
+                    : "border-slate-300 focus:ring-blue-500"
                 }`}
               />
               {errors.email && (
@@ -203,7 +220,7 @@ const Contact: React.FC = () => {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                   errors.subject
                     ? "border-red-500 focus:ring-red-500"
-                    : "border-slate-300 focus:ring-amber-500"
+                    : "border-slate-300 focus:ring-blue-500"
                 }`}
               />
               {errors.subject && (
@@ -220,7 +237,7 @@ const Contact: React.FC = () => {
                 className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
                   errors.message
                     ? "border-red-500 focus:ring-red-500"
-                    : "border-slate-300 focus:ring-amber-500"
+                    : "border-slate-300 focus:ring-blue-500"
                 }`}
               ></textarea>
               {errors.message && (
@@ -230,7 +247,7 @@ const Contact: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-amber-500 text-white font-bold py-3 px-6 rounded-md hover:bg-amber-600 transition-fast focus-visible disabled:bg-amber-400 disabled:cursor-not-allowed flex items-center justify-center h-[50px]"
+              className="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-600 transition-fast focus-visible disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center h-[50px]"
             >
               {isLoading ? (
                 <>

@@ -21,9 +21,9 @@ export interface Project {
   client: string;
 }
 
-export interface Testimonial {
+/*export interface Testimonial {
   quote: string;
   name: string;
   title: string;
   avatar: string;
-}
+}*/

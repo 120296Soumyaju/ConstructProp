@@ -4,7 +4,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Projects from './components/Projects';
 import About from './components/About';
-import Testimonials from './components/Testimonials';
+/*import Testimonials from './components/Testimonials';*/
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { SITE_CONTENT } from './content';
@@ -12,7 +12,7 @@ import { SITE_CONTENT } from './content';
 // SEO Component to manage head tags
 const MetaTags: React.FC = () => {
   useEffect(() => {
-    const { siteMetadata, header, contact } = SITE_CONTENT;
+    const { siteMetadata, contact } = SITE_CONTENT;
     const {
       title,
       description,
@@ -26,8 +26,9 @@ const MetaTags: React.FC = () => {
     // Set document title
     document.title = title;
 
-    // Helper to create or update a meta tag by name
+    // Helper to create/update a meta tag by name
     const setMetaTag = (name: string, content: string) => {
+      if (!content) return;
       let element = document.querySelector(`meta[name="${name}"]`);
       if (!element) {
         element = document.createElement('meta');
@@ -37,15 +38,16 @@ const MetaTags: React.FC = () => {
       element.setAttribute('content', content);
     };
 
-    // Helper to create or update a meta tag by property (for OG tags)
+    // Helper to create/update a meta tag by property
     const setPropertyMetaTag = (property: string, content: string) => {
-        let element = document.querySelector(`meta[property="${property}"]`);
-        if (!element) {
-            element = document.createElement('meta');
-            element.setAttribute('property', property);
-            document.head.appendChild(element);
-        }
-        element.setAttribute('content', content);
+      if (!content) return;
+      let element = document.querySelector(`meta[property="${property}"]`);
+      if (!element) {
+        element = document.createElement('meta');
+        element.setAttribute('property', property);
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
     };
 
     // Set standard meta tags
@@ -78,7 +80,7 @@ const MetaTags: React.FC = () => {
     canonicalLink.setAttribute('href', siteUrl);
     
     // Structured Data (JSON-LD) for SEO
-    let ldJsonScript = document.getElementById('ld-json-data');
+    let ldJsonScript = document.getElementById('ld-json-data') as HTMLScriptElement | null;
     if (!ldJsonScript) {
       // FIX: The `ldJsonScript` variable is inferred as `HTMLElement`, which doesn't have a `type` property.
       // Create a new, strongly-typed `HTMLScriptElement` to fix the error.
@@ -92,13 +94,14 @@ const MetaTags: React.FC = () => {
     const structuredData = {
       '@context': 'https://schema.org',
       '@type': 'ConstructionCompany',
-      name: `${header.title}${header.titleHighlight}`,
+      name: title,
       description: description,
       url: siteUrl,
       logo: logoUrl,
       image: ogImage,
       telephone: contact.info.phone,
       email: contact.info.email,
+      website: contact.info.website,
       address: {
         '@type': 'PostalAddress',
         streetAddress: contact.info.address.street,
@@ -106,7 +109,7 @@ const MetaTags: React.FC = () => {
         postalCode: contact.info.address.zip,
         addressCountry: contact.info.address.country,
       },
-      openingHours: 'Mo-Fr 08:00-17:00',
+      hours: contact.info.hours,
     };
     
     ldJsonScript.innerHTML = JSON.stringify(structuredData);
@@ -127,7 +130,6 @@ const App: React.FC = () => {
         <Services />
         <Projects />
         <About />
-        <Testimonials />
         <Contact />
       </main>
       <Footer />

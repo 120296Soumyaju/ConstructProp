@@ -10,7 +10,7 @@ const About: React.FC = () => {
             <h2 className="text-4xl font-extrabold text-slate-900 mb-4">
               {SITE_CONTENT.about.title}
             </h2>
-            <div className="mb-6 w-24 h-1 bg-amber-500 rounded"></div>
+            <div className="mb-6 w-24 h-1 bg-blue-500 rounded"></div>
             <p className="text-slate-600 leading-relaxed mb-4">
               {SITE_CONTENT.about.paragraph1}
             </p>

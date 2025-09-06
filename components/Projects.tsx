@@ -21,7 +21,7 @@ const ProjectCard: React.FC<{ project: Project; onSelect: () => void }> = ({
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
       <div className="absolute bottom-0 left-0 p-6">
-        <p className="text-amber-400 font-semibold text-sm mb-1">
+        <p className="text-blue-400 font-semibold text-sm mb-1">
           {project.category}
         </p>
         <h3 className="text-2xl font-bold text-white">{project.title}</h3>
@@ -76,9 +76,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({
           className="w-full h-64 md:h-80 object-cover rounded-t-lg"
         />
         <div className="p-6 md:p-8">
-          <p className="text-amber-500 font-semibold mb-2">
-            {project.category}
-          </p>
+          <p className="text-blue-500 font-semibold mb-2">{project.category}</p>
           <h2
             id="project-modal-title"
             className="text-3xl font-bold text-slate-900 mb-4"
@@ -140,7 +138,7 @@ const Projects: React.FC = () => {
             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
               {SITE_CONTENT.projects.subtitle}
             </p>
-            <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
+            <div className="mt-4 mx-auto w-24 h-1 bg-blue-500 rounded"></div>
           </div>
 
           <div className="flex justify-center flex-wrap gap-4 mb-12">
@@ -150,8 +148,8 @@ const Projects: React.FC = () => {
                 onClick={() => setActiveFilter(category)}
                 className={`px-6 py-2 font-semibold rounded-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 ${
                   activeFilter === category
-                    ? "bg-amber-500 text-white shadow-md"
-                    : "bg-slate-100 text-slate-700 hover:bg-amber-100 hover:text-amber-600"
+                    ? "bg-blue-500 text-white shadow-md"
+                    : "bg-slate-100 text-slate-700 hover:bg-blue-100 hover:text-blue-600"
                 }`}
               >
                 {category}

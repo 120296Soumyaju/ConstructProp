@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 import { SITE_CONTENT } from "../content";
 import type { Testimonial } from "../types";
 import QuoteIcon from "./icons/QuoteIcon";
@@ -8,7 +8,7 @@ const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({
 }) => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md flex flex-col h-full fade-in">
-      <QuoteIcon className="w-10 h-10 text-amber-300 mb-4" />
+      <QuoteIcon className="w-10 h-10 text-blue-300 mb-4" />
       <p className="text-slate-600 italic mb-6 flex-grow">
         "{testimonial.quote}"
       </p>
@@ -40,7 +40,7 @@ const Testimonials: React.FC = () => {
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
             {SITE_CONTENT.testimonials.subtitle}
           </p>
-          <div className="mt-4 mx-auto w-24 h-1 bg-amber-500 rounded"></div>
+          <div className="mt-4 mx-auto w-24 h-1 bg-blue-500 rounded"></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SITE_CONTENT.testimonials.items.map((testimonial, index) => (
@@ -52,4 +52,4 @@ const Testimonials: React.FC = () => {
   );
 };
 
-export default Testimonials;
+export default Testimonials;*/

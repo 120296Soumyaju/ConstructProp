@@ -1,5 +1,7 @@
 
-import type { NavLink, Service, Project, Testimonial } from './types';
+/*import type { NavLink, Service, Project, Testimonial } from './types';*/
+import type { NavLink, Service, Project} from './types';
+
 import BuildingIcon from './components/icons/BuildingIcon';
 import WrenchIcon from './components/icons/WrenchIcon';
 import RulerIcon from './components/icons/RulerIcon';
@@ -10,7 +12,7 @@ const NAV_LINKS: NavLink[] = [
   { href: '#services', label: 'Services' },
   { href: '#projects', label: 'Projects' },
   { href: '#about', label: 'About Us' },
-  { href: '#testimonials', label: 'Testimonials' },
+  /*{ href: '#testimonials', label: 'Testimonials' },*/
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -18,22 +20,22 @@ const SERVICES: Service[] = [
   {
     icon: BuildingIcon,
     title: 'General Contracting',
-    description: 'We provide end-to-end general contracting services, managing every aspect of your project from start to finish with precision and care.',
+    description: 'We deliver complete general contracting solutions, overseeing every stage of your project with expertise and attention to detail.',
   },
   {
     icon: RulerIcon,
     title: 'Design-Build',
-    description: 'Our integrated design-build approach streamlines project delivery, fostering collaboration and innovation to bring your vision to life efficiently.',
+    description: 'Through our unified design-build process, we simplify project execution, enhance teamwork, and turn your vision into reality with efficiency and innovation.',
   },
   {
     icon: WrenchIcon,
     title: 'Renovations',
-    description: 'Transform your existing space with our expert renovation services. We modernize and enhance properties with a focus on quality and durability.',
+    description: 'Revitalize your space with our expert renovation services, enhancing every detail for lasting quality and modern appeal.',
   },
   {
     icon: HardHatIcon,
     title: 'Construction Management',
-    description: 'Leverage our expert construction management to ensure your project is completed on time, within budget, and to the highest standards.',
+    description: 'Rely on our expert construction management to deliver your project on schedule, within budget, and with uncompromising quality.',
   },
 ];
 
@@ -88,7 +90,7 @@ const PROJECTS: Project[] = [
   },
 ];
 
-const TESTIMONIALS: Testimonial[] = [
+/*const TESTIMONIALS: Testimonial[] = [
   {
     quote: "BenoitConstruction transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
     name: 'Jane Doe',
@@ -107,35 +109,39 @@ const TESTIMONIALS: Testimonial[] = [
     title: 'COO, MarketFront Retail',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop',
   },
-];
+];*/
 
 export const SITE_CONTENT = {
   siteMetadata: {
-    title: 'BenoitConstruction - Premier Construction & Renovation Services',
-    description: 'BenoitConstruction offers expert general contracting, design-build, and renovation services for commercial and residential projects. Building your vision into reality.',
-    author: 'BenoitConstruction',
+    title: 'Benoit Contracting LLC - Construction & Renovation Services',
+    description: 'Benoit Contracting LLC offers expert general contracting, design-build, and renovation services for commercial and residential projects. Building your vision into reality.',
+    author: 'Benoit Contracting LLC',
     keywords: ['construction', 'general contracting', 'design-build', 'renovation', 'commercial construction', 'residential construction', 'construction company'],
-    siteUrl: 'https://www.benoitconstruction.com', // Placeholder URL for canonical link and social sharing
-    logoUrl: 'https://www.benoitconstruction.com/logo.png', // Placeholder URL for company logo
+    siteUrl: 'https://benoit.ae', // Placeholder URL for canonical link and social sharing
+    logoUrl: 'https://benoit.ae/company-logo.png', // Placeholder URL for company logo
     ogImage: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&h=630&auto=format&fit=crop', // A 1.91:1 aspect ratio version of the hero image for Open Graph
   },
   navLinks: NAV_LINKS,
   header: {
-    title: 'Benoit',
-    titleHighlight: 'Construction',
+    /*title: 'Benoit',
+    titleHighlight: 'Construction',*/ 
+    logo: '/company-logo.png', // Path to the company logo image
+    altText: 'Company Logo',
+    tagline: 'Building Today, Inspiring Generations Tomorrow',
+    ctaButton: 'Request a Quote',
     quoteButton: 'Get a Quote',
     srOpenMenu: 'Open main menu',
   },
   hero: {
-    titleL1: 'Building Your Vision,',
-    titleL2: 'Creating   Reality',
-    subtitle: 'We are a team of dedicated professionals committed to delivering high-quality construction projects on time and within budget.',
+    titleL1: 'Building Today,',
+    titleL2: 'Inspiring Generations Tomorrow',
+    subtitle: 'Our team of skilled professionals is dedicated to crafting exceptional construction projects that stand the test of time, delivered on schedule and within budget.',
     ctaButton: 'View Our Work',
     videoUrl: 'https://videos.pexels.com/video-files/3209228/3209228-hd_1920_1080_25fps.mp4',
   },
   services: {
     title: 'Our Services',
-    subtitle: 'From concept to completion, we offer a comprehensive range of services.',
+    subtitle: 'We provide end-to-end solutions, guiding every project from initial idea to final delivery.',
     items: SERVICES,
   },
   projects: {
@@ -149,17 +155,17 @@ export const SITE_CONTENT = {
     }
   },
   about: {
-    title: 'About BenoitConstruction',
-    paragraph1: 'With over 20 years of experience in the construction industry, BenoitConstruction has established itself as a leader in delivering exceptional quality and innovative solutions. Our foundation is built on integrity, reliability, and a relentless pursuit of excellence.',
-    paragraph2: 'Our mission is to build more than just structures; we build lasting relationships with our clients by exceeding their expectations and earning their trust through outstanding performance by every member of our construction team.',
+    title: 'About Benoit Contracting LLC',
+    paragraph1: 'With over two decades of proven expertise, Benoit Contracting LLC stands as a trusted name in delivering high-quality construction solutions. Our legacy is built on a foundation of integrity, precision, and a commitment to innovation that transforms visions into enduring realities.',
+    paragraph2: 'At Benoit, we go beyond constructing buildings—we create lasting partnerships. By consistently exceeding expectations and upholding the highest standards, our dedicated team ensures every project is delivered with excellence, on time, and within budget.',
     ctaButton: 'Work With Us',
     imageAlt: 'Construction team collaborating on blueprints at a worksite',
   },
-  testimonials: {
+  /*testimonials: {
     title: 'What Our Clients Say',
     subtitle: 'Real stories from satisfied partners who trusted us with their vision.',
     items: TESTIMONIALS,
-  },
+  },*/
   contact: {
     title: 'Get In Touch',
     subtitle: "Have a project in mind? We'd love to hear from you.",
@@ -167,18 +173,20 @@ export const SITE_CONTENT = {
         title: 'Contact Information',
         addressLabel: 'Address:',
         address: {
-          street: '123 Construction Ave',
-          city: 'Metropolis',
+          street: 'P.O Box: ',
+          city: 'Dubai',
           country: 'UAE',
-          zip: '10101',
-          full: '123 Construction Ave, Metropolis, USA 10101',
+          zip: '283476',
+          full: 'P.O Box: 283476 - Dubai, UAE',
         },
         phoneLabel: 'Phone:',
-        phone: '(123) 456-7890',
+        phone: '04 263 4123',
         emailLabel: 'Email:',
-        email: 'contact@benoitconstruction.com',
+        email: 'admin@btlme.ae',
+        websiteLabel: 'Website:',
+        website: 'www.btlme.ae',
         hoursLabel: 'Business Hours:',
-        hours: 'Mon-Fri, 8:00 AM - 5:00 PM',
+        hours: 'Mon-Fri, 8:30 AM - 5:30 PM',
     },
     form: {
       namePlaceholder: 'Your Name',
@@ -193,15 +201,16 @@ export const SITE_CONTENT = {
   },
   footer: {
     about: {
-      title: 'Benoit',
-      titleHighlight: 'Construction',
-      description: 'Building the Future, One Project at a Time. Our commitment is to quality, integrity, and client satisfaction.',
+      /*title: 'Benoit',
+      titleHighlight: 'Construction',*/
+      logo: '/company-logo.png',
+      description: 'Shaping Tomorrow with Every Build. We stand for excellence, trust, and unmatched client satisfaction.',
     },
     quickLinksTitle: 'Quick Links',
     contactTitle: 'Contact Us',
     followUsTitle: 'Follow Us',
-    copyright: 'BenoitConstruction. All Rights Reserved.',
-    developedBy: 'Developed by RubitCube Information Technology LLC. | UAE | UK | India',
+    copyright: 'Benoit Contracting LLC',
+    developedBy: 'Developed by RubitCube',
     developerUrl: 'https://rubitcube.com',
   }
 };

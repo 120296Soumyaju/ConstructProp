@@ -1,5 +1,6 @@
 
-import type { NavLink, Service, Project, Testimonial } from './types';
+/*import type { NavLink, Service, Project, Testimonial } from './types';*/
+import type { NavLink, Service, Project } from './types';
 import BuildingIcon from './components/icons/BuildingIcon';
 import WrenchIcon from './components/icons/WrenchIcon';
 import RulerIcon from './components/icons/RulerIcon';
@@ -10,7 +11,7 @@ export const NAV_LINKS: NavLink[] = [
   { href: '#services', label: 'Services' },
   { href: '#projects', label: 'Projects' },
   { href: '#about', label: 'About Us' },
-  { href: '#testimonials', label: 'Testimonials' },
+  /*{ href: '#testimonials', label: 'Testimonials' },*/
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -88,7 +89,7 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
+/*export const TESTIMONIALS: Testimonial[] = [
   {
     quote: "BenoitConstruction transformed our vision into a stunning reality. Their attention to detail and commitment to quality is unparalleled. We couldn't be happier with our new headquarters.",
     name: 'Jane Doe',
@@ -107,4 +108,4 @@ export const TESTIMONIALS: Testimonial[] = [
     title: 'COO, MarketFront Retail',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop',
   },
-];
+];*/

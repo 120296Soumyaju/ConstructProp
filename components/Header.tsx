@@ -48,28 +48,35 @@ const Header: React.FC = () => {
     }
   };
 
+  //Handle logo click to scroll to #home locally, with external URL as fallback
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    handleLinkClick(e, "#home");
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
-        ${isScrolled ? "bg-white/80 backdrop-blur-sm shadow-md" : "bg-transparent"}`}
+        ${
+          isScrolled
+            ? "bg-white/80 backdrop-blur-sm shadow-md"
+            : "bg-white/50 backdrop-blur-sm" // Reverted to black overlay for contrast
+        }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
-              href="#home"
-              onClick={(e) => handleLinkClick(e, "#home")}
-              className={`text-2xl font-bold cursor-pointer fade-in ${
-                isScrolled ? "text-slate-900" : "text-white"
-              }`}
+              href="https://benoit.ae/" // External URL for live site
+              onClick={handleLogoClick} // Local scroll to #home during development
+              className="cursor-pointer focus-visible fade-in flex items-center"
             >
-              {SITE_CONTENT.header.title}
-              <span
-                className={isScrolled ? "text-amber-500" : "text-amber-400"}
-              >
-                {SITE_CONTENT.header.titleHighlight}
-              </span>
+              <img
+                src={SITE_CONTENT.header.logo}
+                alt={SITE_CONTENT.header.altText}
+                className="h-14 w-auto"
+              />
             </a>
           </div>
 
@@ -82,10 +89,10 @@ const Header: React.FC = () => {
                 onClick={(e) => handleLinkClick(e, link.href)}
                 className={`font-medium transition-colors duration-300 cursor-pointer ${
                   activeLink === link.href
-                    ? "text-amber-400"
+                    ? "text-blue-ribbon"
                     : isScrolled
-                    ? "text-slate-700 hover:text-amber-500"
-                    : "text-white hover:text-amber-400"
+                    ? "text-slate-700 hover:text-blue-ribbon"
+                    : "text-black hover:text-blue-ribbon" // Changed from text-black to text-white
                 }`}
               >
                 {link.label}
@@ -100,8 +107,8 @@ const Header: React.FC = () => {
               onClick={(e) => handleLinkClick(e, "#contact")}
               className={`inline-block font-semibold px-5 py-3 rounded-md shadow-sm transition-fast ${
                 isScrolled
-                  ? "bg-amber-500 text-white hover:bg-amber-600"
-                  : "bg-white text-amber-600 hover:bg-slate-100"
+                  ? "bg-blue-ribbon text-white hover:bg-blue-700"
+                  : "bg-white text-blue-ribbon hover:bg-slate-100" // Aligned with blue-ribbon theme
               }`}
             >
               {SITE_CONTENT.header.quoteButton}
@@ -114,8 +121,8 @@ const Header: React.FC = () => {
               onClick={() => setIsOpen(!isOpen)}
               className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${
                 isScrolled
-                  ? "text-slate-700 hover:text-amber-500 hover:bg-slate-100"
-                  : "text-white hover:text-amber-400"
+                  ? "text-slate-700 hover:text-blue-ribbon hover:bg-slate-100"
+                  : "text-white hover:text-blue-ribbon"
               }`}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -163,8 +170,8 @@ const Header: React.FC = () => {
               onClick={(e) => handleLinkClick(e, link.href)}
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 activeLink === link.href
-                  ? "text-amber-500 bg-amber-50"
-                  : "text-slate-700 hover:text-amber-500"
+                  ? "text-blue-ribbon bg-blue-50"
+                  : "text-slate-700 hover:text-blue-ribbon"
               }`}
             >
               {link.label}
@@ -173,7 +180,7 @@ const Header: React.FC = () => {
           <a
             href="#contact"
             onClick={(e) => handleLinkClick(e, "#contact")}
-            className="block w-full text-left bg-amber-500 text-white font-semibold px-4 py-3 rounded-md hover:bg-amber-600 mt-2"
+            className="block w-full text-left bg-blue-ribbon text-white font-semibold px-4 py-3 rounded-md hover:bg-blue-700 mt-2"
           >
             {SITE_CONTENT.header.quoteButton}
           </a>

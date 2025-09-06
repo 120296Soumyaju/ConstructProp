@@ -17,9 +17,9 @@
 // The palette is based on Tailwind's default color names for ease of use.
 const colors = {
   primary: {
-    DEFAULT: '#F59E0B', // amber-500
-    light: '#FBBF24',   // amber-400
-    dark: '#D97706',    // amber-600
+    DEFAULT: '#F59E0B', // blue-500
+    light: '#FBBF24',   // blue-400
+    dark: '#D97706',    // blue-600
     contrastText: '#FFFFFF',
   },
   neutral: {
@@ -40,7 +40,7 @@ const colors = {
     paper: '#FFFFFF',
   },
   text: {
-    primary: '#1E293B',   // slate-800
+    primary: '#f7f9fdff',   // slate-800
     secondary: '#475569', // slate-600
     light: '#64748B',    // slate-500
   },

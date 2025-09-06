@@ -1,15 +1,15 @@
 <?php
 // -------------------------
-//  BenoitConstructionp Quote Form
+//  BenoitConstruction Quote Form
 // -------------------------
 
 // Debugging (disable in production)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 1); // Remove or set to 0 in production
+ini_set('display_startup_errors', 1); // Remove or set to 0 in production
+error_reporting(E_ALL); // Set to E_ERROR | E_WARNING in production
 
 // Set CORS & JSON headers
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://benoit.ae"); // Restrict in production
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -36,6 +36,16 @@ if (file_exists($envPath)) {
             $_ENV[$key] = $value;
             putenv("$key=$value");
         }
+    }
+}
+
+// Check if required environment variables are set
+$requiredEnvVars = ['SMTP_HOST', 'SMTP_USERNAME', 'SMTP_PASSWORD', 'MAIL_FROM_ADDRESS', 'MAIL_TO_ADDRESS'];
+foreach ($requiredEnvVars as $var) {
+    if (!getenv($var)) {
+        http_response_code(500);
+        echo json_encode(['status' => 'error', 'message' => "Environment variable $var is not set."]);
+        exit;
     }
 }
 
@@ -89,18 +99,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         // SMTP settings
         $mail->isSMTP();
-        $mail->Host       = getenv('SMTP_HOST') ?: 'smtp.gmail.com';
+        $mail->Host       = getenv('SMTP_HOST');
         $mail->SMTPAuth   = true;
         $mail->Username   = getenv('SMTP_USERNAME');
         $mail->Password   = getenv('SMTP_PASSWORD');
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Changed to SSL for port 465
+        $mail->Port       = 465; // Changed to match your email settings
 
         // Recipients
-        $from = getenv('MAIL_FROM_ADDRESS') ?: $email;
-        $mail->setFrom($from, 'BenoitConstruction Quote Request');
+        $from = getenv('MAIL_FROM_ADDRESS');
+        $mail->setFrom($from, 'Benoit Contracting Quote Request');
 
-        $toAddresses = explode(',', getenv('MAIL_TO_ADDRESS') ?: $from);
+        $toAddresses = explode(',', getenv('MAIL_TO_ADDRESS'));
         foreach ($toAddresses as $toAddress) {
             $toAddress = trim($toAddress);
             if (isValidEmail($toAddress)) {

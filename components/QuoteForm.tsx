@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 
 interface FormData {
   name: string;
@@ -10,6 +10,16 @@ interface FormData {
 interface FormErrors {
   [key: string]: string;
 }
+
+// Utility to convert FormData to URLSearchParams with type safety
+const toUrlSearchParams = (data: FormData): URLSearchParams => {
+  const params = new URLSearchParams();
+  params.append("name", data.name);
+  params.append("email", data.email);
+  params.append("subject", data.subject);
+  params.append("message", data.message);
+  return params;
+};
 
 export default function QuoteForm() {
   const [formData, setFormData] = useState<FormData>({
@@ -33,7 +43,11 @@ export default function QuoteForm() {
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})$/.test(
+        formData.email
+      )
+    ) {
       newErrors.email = "Please enter a valid email address";
     }
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
@@ -46,6 +60,17 @@ export default function QuoteForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle input changes
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -54,16 +79,22 @@ export default function QuoteForm() {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
+    let apiUrl = process.env.REACT_APP_API_URL || // Move outside try block
+      (process.env.NODE_ENV === "development"
+        ? "http://localhost:8000/send_quote.php"
+        : "https://benoit.ae/send_quote.php");
+    let response: Response | undefined;
+
     try {
-      const response = await fetch("https://rubitcube.com/benoittesting/send_quote.php", {
+      response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: new URLSearchParams(Object.entries(formData)).toString(),
+        body: toUrlSearchParams(formData).toString(),
       });
 
-      const raw = await response.text(); // ✅ read once
+      const raw = await response.text();
       let data: any;
       try {
         data = JSON.parse(raw);
@@ -82,32 +113,111 @@ export default function QuoteForm() {
         throw new Error(data.message || "Failed to send quote request");
       }
     } catch (error) {
+      console.error("Submission failed:", {
+        error: error instanceof Error ? error.message : "Unknown error",
+        status: response?.status, // Safe access with optional chaining
+        url: apiUrl,
+      });
       setSubmitStatus({
         type: "error",
         message:
           error instanceof Error
             ? error.message
-            : "An unexpected error occurred",
+            : "Network error or server unavailable. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // Handle input changes
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setTimeout(() => {
+        setSubmitStatus({ type: null, message: "" });
+      }, 5000); // Reset status after 5 seconds
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6">
-      {/* Keep your fields and UI same, only submit logic changed */}
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Your Name"
+          aria-label="Your Name"
+          className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+            errors.name
+              ? "border-red-500 focus:ring-red-500"
+              : "border-slate-300 focus:ring-blue-500"
+          }`}
+        />
+        {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
+      </div>
+      <div>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Your Email"
+          aria-label="Your Email"
+          className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+            errors.email
+              ? "border-red-500 focus:ring-red-500"
+              : "border-slate-300 focus:ring-blue-500"
+          }`}
+        />
+        {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
+      </div>
+      <div>
+        <input
+          type="text"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          placeholder="Subject"
+          aria-label="Subject"
+          className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+            errors.subject
+              ? "border-red-500 focus:ring-red-500"
+              : "border-slate-300 focus:ring-blue-500"
+          }`}
+        />
+        {errors.subject && <p className="text-red-600 text-sm mt-1">{errors.subject}</p>}
+      </div>
+      <div>
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder="Your Message"
+          aria-label="Your Message"
+          rows={5}
+          className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
+            errors.message
+              ? "border-red-500 focus:ring-red-500"
+              : "border-slate-300 focus:ring-blue-500"
+          }`}
+        />
+        {errors.message && <p className="text-red-600 text-sm mt-1">{errors.message}</p>}
+      </div>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        aria-label={isSubmitting ? "Submitting..." : "Submit Quote Request"}
+        className="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-600 transition-fast focus-visible disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center h-[50px]"
+      >
+        {isSubmitting ? "Submitting..." : "Submit Quote Request"}
+      </button>
+      {submitStatus.message && (
+        <div
+          className={`text-center p-4 rounded-md text-sm font-medium transition-opacity duration-300 ${
+            submitStatus.type === "success" ? "bg-green-100 text-green-800" : ""
+          } ${submitStatus.type === "error" ? "bg-red-100 text-red-800" : ""}`}
+          role="alert"
+          aria-live="polite"
+        >
+          {submitStatus.message}
+        </div>
+      )}
     </form>
   );
 }
