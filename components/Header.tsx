@@ -60,7 +60,7 @@ const Header: React.FC = () => {
         ${
           isScrolled
             ? "bg-white/80 backdrop-blur-sm shadow-md"
-            : "bg-white/50 backdrop-blur-sm" // Reverted to black overlay for contrast
+            : "bg-white/90 backdrop-blur-sm" // Reverted to black overlay for contrast
         }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

@@ -119,7 +119,6 @@ export const SITE_CONTENT = {
     keywords: ['construction', 'general contracting', 'design-build', 'renovation', 'commercial construction', 'residential construction', 'construction company'],
     siteUrl: 'https://benoit.ae', // Placeholder URL for canonical link and social sharing
     logoUrl: 'https://benoit.ae/company-logo.png', // Placeholder URL for company logo
-    ogImage: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&h=630&auto=format&fit=crop', // A 1.91:1 aspect ratio version of the hero image for Open Graph
   },
   navLinks: NAV_LINKS,
   header: {
@@ -137,7 +136,11 @@ export const SITE_CONTENT = {
     titleL2: 'Inspiring Generations Tomorrow',
     subtitle: 'Our team of skilled professionals is dedicated to crafting exceptional construction projects that stand the test of time, delivered on schedule and within budget.',
     ctaButton: 'View Our Work',
-    videoUrl: 'https://videos.pexels.com/video-files/3209228/3209228-hd_1920_1080_25fps.mp4',
+      videoSources: [
+      { src: '/banner_benoit.webm', type: 'video/webm' },
+      { src: '/banner_benoit.mp4', type: 'video/mp4' },
+    ],
+    /*bannerUrL: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1200&h=630&auto=format&fit=crop', // A 1.91:1 aspect ratio version of the hero image for Open Graph*/    
   },
   services: {
     title: 'Our Services',
