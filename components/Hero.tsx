@@ -70,7 +70,7 @@ const Hero: React.FC = () => {
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-2 text-white drop-shadow-2xl fade-in">
           {SITE_CONTENT.hero.titleL1}
         </h1>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 text-[#0443F2] drop-shadow-2xl fade-in">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6 text-[#35b0e9] drop-shadow-2xl fade-in">
           {SITE_CONTENT.hero.titleL2}
         </h2>
         <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-slate-200 slide-up">
@@ -79,7 +79,7 @@ const Hero: React.FC = () => {
         <a
           href="#projects"
           onClick={handleCtaClick}
-          className="inline-block bg-[#0443F2] text-white font-bold text-lg px-8 py-4 rounded-md hover:bg-white hover:text-[#0443F2] transition-fast focus-visible slide-up shadow-lg cursor-pointer"
+          className="inline-block bg-[#35b0e9] text-white font-bold text-lg px-8 py-4 rounded-md hover:bg-white hover:text-[#0443F2] transition-fast focus-visible slide-up shadow-lg cursor-pointer"
         >
           {SITE_CONTENT.hero.ctaButton}
         </a>
