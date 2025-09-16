@@ -103,8 +103,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->SMTPAuth   = true;
         $mail->Username   = getenv('SMTP_USERNAME');
         $mail->Password   = getenv('SMTP_PASSWORD');
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Changed to SSL for port 465
-        $mail->Port       = 465; // Changed to match your email settings
+        
+        // Use .env values
+        $mail->SMTPSecure = getenv('SMTP_ENCRYPTION') === 'ssl' 
+            ? PHPMailer::ENCRYPTION_SMTPS 
+            : PHPMailer::ENCRYPTION_STARTTLS;
+
+        $mail->Port = getenv('SMTP_PORT') ?: 465;
 
         // Recipients
         $from = getenv('MAIL_FROM_ADDRESS');
