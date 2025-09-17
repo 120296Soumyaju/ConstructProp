@@ -146,7 +146,7 @@ const Footer: React.FC = () => {
         {" "}
         {/* Using a darker shade for the bottom section */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <p>
+          <p className="text-white font-semibold">
             &copy; {new Date().getFullYear()} {SITE_CONTENT.footer.copyright}
           </p>
           <p>
