@@ -4,12 +4,12 @@
 // -------------------------
 
 // Debugging (disable in production)
-ini_set('display_errors', 1); // Remove or set to 0 in production
-ini_set('display_startup_errors', 1); // Remove or set to 0 in production
-error_reporting(E_ALL); // Set to E_ERROR | E_WARNING in production
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Set CORS & JSON headers
-header("Access-Control-Allow-Origin: https://benoit.ae"); // Restrict in production
+header("Access-Control-Allow-Origin: https://benoit.ae");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // -------------------------
 // Load .env file manually
 // -------------------------
-$envPath = __DIR__ . '/.env';
+$envPath = __DIR__ . '/../.env';
 if (file_exists($envPath)) {
     $lines = file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
@@ -94,62 +94,108 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    $mail = new PHPMailer(true);
+    // -------------------------
+    // Function to attempt sending
+    // -------------------------
+    function attemptSend($host, $port, $secure, $from, $toAddresses, $replyEmail, $replyName, $subject, $bodyHtml, $bodyAlt)
+    {
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->SMTPDebug = 2; // verbose debug
+            $mail->Debugoutput = 'error_log';
 
-    try {
-        // SMTP settings
-        $mail->isSMTP();
-        $mail->Host       = getenv('SMTP_HOST');
-        $mail->SMTPAuth   = true;
-        $mail->Username   = getenv('SMTP_USERNAME');
-        $mail->Password   = getenv('SMTP_PASSWORD');
-        
-        // Use .env values
-        $mail->SMTPSecure = getenv('SMTP_ENCRYPTION') === 'ssl' 
-            ? PHPMailer::ENCRYPTION_SMTPS 
-            : PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Host       = $host;
+            $mail->SMTPAuth   = true;
+            $mail->Username   = getenv('SMTP_USERNAME');
+            $mail->Password   = getenv('SMTP_PASSWORD');
+            $mail->SMTPSecure = $secure;
+            $mail->Port       = $port;
 
-        $mail->Port = getenv('SMTP_PORT') ?: 465;
+            // Allow self-signed certs
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true,
+                ],
+            ];
 
-        // Recipients
-        $from = getenv('MAIL_FROM_ADDRESS');
-        $mail->setFrom($from, 'Benoit Contracting Quote Request');
-
-        $toAddresses = explode(',', getenv('MAIL_TO_ADDRESS'));
-        foreach ($toAddresses as $toAddress) {
-            $toAddress = trim($toAddress);
-            if (isValidEmail($toAddress)) {
-                $mail->addAddress($toAddress);
+            // Recipients
+            $mail->setFrom($from, 'Benoit Contracting Quote Request');
+            foreach ($toAddresses as $to) {
+                if (isValidEmail($to)) {
+                    $mail->addAddress($to);
+                }
             }
+
+            if (isValidEmail($replyEmail)) {
+                $mail->addReplyTo($replyEmail, $replyName);
+            }
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = "New Quote Request: $subject";
+            $mail->Body    = $bodyHtml;
+            $mail->AltBody = $bodyAlt;
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("SMTP attempt failed on $host:$port ($secure) - " . $e->getMessage());
+            return false;
         }
+    }
 
-        // Reply-to = customer
-        if (isValidEmail($email)) {
-            $mail->addReplyTo($email, $name);
-        }
+    $from = getenv('MAIL_FROM_ADDRESS');
+    $toAddresses = array_map('trim', explode(',', getenv('MAIL_TO_ADDRESS')));
 
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = "New Quote Request: $subject";
-        $mail->Body    = "
-            <h3>New Quote Request</h3>
-            <p><strong>Name:</strong> $name</p>
-            <p><strong>Email:</strong> $email</p>
-            <p><strong>Subject:</strong> $subject</p>
-            <p><strong>Message:</strong><br/>" . nl2br($message) . "</p>
-        ";
-        $mail->AltBody = "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message";
+    $bodyHtml = "
+        <h3>New Quote Request</h3>
+        <p><strong>Name:</strong> $name</p>
+        <p><strong>Email:</strong> $email</p>
+        <p><strong>Subject:</strong> $subject</p>
+        <p><strong>Message:</strong><br/>" . nl2br($message) . "</p>
+    ";
+    $bodyAlt = "Name: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$message";
 
-        $mail->send();
+    // -------------------------
+    // Try SSL/465 first, then TLS/587
+    // -------------------------
+    $success = attemptSend(
+        getenv('SMTP_HOST'),
+        465,
+        PHPMailer::ENCRYPTION_SMTPS,
+        $from,
+        $toAddresses,
+        $email,
+        $name,
+        $subject,
+        $bodyHtml,
+        $bodyAlt
+    );
 
+    if (!$success) {
+        $success = attemptSend(
+            getenv('SMTP_HOST'),
+            587,
+            PHPMailer::ENCRYPTION_STARTTLS,
+            $from,
+            $toAddresses,
+            $email,
+            $name,
+            $subject,
+            $bodyHtml,
+            $bodyAlt
+        );
+    }
+
+    if ($success) {
         http_response_code(200);
         echo json_encode(['status' => 'success', 'message' => 'Your quote request has been sent successfully.']);
-    } catch (Exception $e) {
+    } else {
         http_response_code(500);
-        echo json_encode([
-            'status'  => 'error',
-            'message' => 'Mailer Error: ' . $mail->ErrorInfo . ' | Exception: ' . $e->getMessage()
-        ]);
+        echo json_encode(['status' => 'error', 'message' => 'Mailer Error: Could not connect using either SSL:465 or TLS:587. Check error_log for details.']);
     }
 } else {
     http_response_code(405);

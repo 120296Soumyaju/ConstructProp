@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from "react";
+import { SITE_CONTENT } from "../content";
 
 interface FormData {
   name: string;
@@ -11,7 +12,6 @@ interface FormErrors {
   [key: string]: string;
 }
 
-// Utility to convert FormData to URLSearchParams with type safety
 const toUrlSearchParams = (data: FormData): URLSearchParams => {
   const params = new URLSearchParams();
   params.append("name", data.name);
@@ -37,7 +37,7 @@ export default function QuoteForm() {
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // Validate form fields
+  // Validation
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
@@ -60,7 +60,7 @@ export default function QuoteForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle input changes
+  // Handle input
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -71,7 +71,7 @@ export default function QuoteForm() {
     }
   };
 
-  // Handle form submission
+  // Handle submit
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -79,18 +79,16 @@ export default function QuoteForm() {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
-    let apiUrl = process.env.REACT_APP_API_URL || // Move outside try block
+    let apiUrl =
+      process.env.REACT_APP_API_URL ||
       (process.env.NODE_ENV === "development"
         ? "http://localhost:8000/send_quote.php"
         : "https://benoit.ae/send_quote.php");
-    let response: Response | undefined;
 
     try {
-      response = await fetch(apiUrl, {
+      const response = await fetch(apiUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: toUrlSearchParams(formData).toString(),
       });
 
@@ -106,30 +104,26 @@ export default function QuoteForm() {
         setSubmitStatus({
           type: "success",
           message:
-            data.message || "Your quote request has been sent successfully!",
+            data.message || SITE_CONTENT.contact.form.successMessage,
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
-        throw new Error(data.message || "Failed to send quote request");
+        throw new Error(data.message || "Failed to send request");
       }
     } catch (error) {
-      console.error("Submission failed:", {
-        error: error instanceof Error ? error.message : "Unknown error",
-        status: response?.status, // Safe access with optional chaining
-        url: apiUrl,
-      });
+      console.error("Submission failed:", error);
       setSubmitStatus({
         type: "error",
         message:
           error instanceof Error
             ? error.message
-            : "Network error or server unavailable. Please try again later.",
+            : SITE_CONTENT.contact.form.errorMessage,
       });
     } finally {
       setIsSubmitting(false);
       setTimeout(() => {
         setSubmitStatus({ type: null, message: "" });
-      }, 5000); // Reset status after 5 seconds
+      }, 5000);
     }
   };
 
@@ -141,8 +135,8 @@ export default function QuoteForm() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          placeholder="Your Name"
-          aria-label="Your Name"
+          placeholder={SITE_CONTENT.contact.form.namePlaceholder}
+          aria-label={SITE_CONTENT.contact.form.namePlaceholder}
           className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
             errors.name
               ? "border-red-500 focus:ring-red-500"
@@ -151,14 +145,15 @@ export default function QuoteForm() {
         />
         {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
       </div>
+
       <div>
         <input
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Your Email"
-          aria-label="Your Email"
+          placeholder={SITE_CONTENT.contact.form.emailPlaceholder}
+          aria-label={SITE_CONTENT.contact.form.emailPlaceholder}
           className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
             errors.email
               ? "border-red-500 focus:ring-red-500"
@@ -167,14 +162,15 @@ export default function QuoteForm() {
         />
         {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
       </div>
+
       <div>
         <input
           type="text"
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          placeholder="Subject"
-          aria-label="Subject"
+          placeholder={SITE_CONTENT.contact.form.subjectPlaceholder}
+          aria-label={SITE_CONTENT.contact.form.subjectPlaceholder}
           className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
             errors.subject
               ? "border-red-500 focus:ring-red-500"
@@ -183,13 +179,14 @@ export default function QuoteForm() {
         />
         {errors.subject && <p className="text-red-600 text-sm mt-1">{errors.subject}</p>}
       </div>
+
       <div>
         <textarea
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Your Message"
-          aria-label="Your Message"
+          placeholder={SITE_CONTENT.contact.form.messagePlaceholder}
+          aria-label={SITE_CONTENT.contact.form.messagePlaceholder}
           rows={5}
           className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 transition-colors ${
             errors.message
@@ -199,14 +196,18 @@ export default function QuoteForm() {
         />
         {errors.message && <p className="text-red-600 text-sm mt-1">{errors.message}</p>}
       </div>
+
       <button
         type="submit"
         disabled={isSubmitting}
-        aria-label={isSubmitting ? "Submitting..." : "Submit Quote Request"}
+        aria-label={isSubmitting ? SITE_CONTENT.contact.form.submitButtonLoading : SITE_CONTENT.contact.form.submitButton}
         className="w-full bg-blue-500 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-600 transition-fast focus-visible disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center h-[50px]"
       >
-        {isSubmitting ? "Submitting..." : "Submit Quote Request"}
+        {isSubmitting
+          ? SITE_CONTENT.contact.form.submitButtonLoading
+          : SITE_CONTENT.contact.form.submitButton}
       </button>
+
       {submitStatus.message && (
         <div
           className={`text-center p-4 rounded-md text-sm font-medium transition-opacity duration-300 ${
