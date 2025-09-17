@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block internal build/static files
+Disallow: /static/
+Disallow: /assets/
+Disallow: /quote
+
+Sitemap: https://benoit.ae/sitemap.xml

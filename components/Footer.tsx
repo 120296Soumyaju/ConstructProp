@@ -7,22 +7,39 @@ import InstagramIcon from "./icons/InstagramIcon";
 
 const Footer: React.FC = () => {
   const socialLinks = [
-    { href: "#", icon: FacebookIcon, name: "Facebook" },
-    { href: "#", icon: TwitterIcon, name: "Twitter" },
-    { href: "#", icon: LinkedInIcon, name: "LinkedIn" },
-    { href: "#", icon: InstagramIcon, name: "Instagram" },
+    {
+      href: "https://www.facebook.com/people/Benoit-Technologies/61554679685113",
+      icon: FacebookIcon,
+      name: "Facebook",
+    },
+    {
+      href: "https://x.com/Benoittech2008",
+      icon: TwitterIcon,
+      name: "Twitter",
+    },
+    {
+      href: "https://www.linkedin.com/company/benoit-technologies-llc",
+      icon: LinkedInIcon,
+      name: "LinkedIn",
+    },
+    {
+      href: "https://www.instagram.com/benoit_technologies",
+      icon: InstagramIcon,
+      name: "Instagram",
+    },
   ];
-// Handle logo click to scroll to #home locally, with external URL as fallback
+  // Handle logo click to scroll to #home locally, with external URL as fallback
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const targetElement = document.getElementById("home");
     if (targetElement) {
       const headerOffset = 80; // Match header height
       const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
-  }; 
+  };
 
   return (
     <footer className="bg-blue-ribbon-light text-white fade-in">
@@ -40,7 +57,7 @@ const Footer: React.FC = () => {
                   alt={SITE_CONTENT.header.altText}
                   className="h-14 w-auto " // Added invert filter to make logo visible against blue-ribbon
                 />
-              </a>  
+              </a>
             </div>
             <p className="text-white leading-relaxed">
               {SITE_CONTENT.footer.about.description}
@@ -73,9 +90,35 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-white">
               <li>{SITE_CONTENT.contact.info.address.full}</li>
-              <li>{SITE_CONTENT.contact.info.phone}</li>
-              <li>{SITE_CONTENT.contact.info.email}</li>
-              <li>{SITE_CONTENT.contact.info.website}</li>
+              <li>
+                <a
+                  href={`tel:${SITE_CONTENT.contact.info.phone}`}
+                  className="hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${SITE_CONTENT.contact.info.email}`}
+                  className="hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`https://${SITE_CONTENT.contact.info.website.replace(
+                    /^https?:\/\//,
+                    ""
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.website}
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -99,7 +142,9 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="bg-blue-ribbon-dark py-6"> {/* Using a darker shade for the bottom section */}
+      <div className="bg-blue-ribbon-dark py-6">
+        {" "}
+        {/* Using a darker shade for the bottom section */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <p>
             &copy; {new Date().getFullYear()} {SITE_CONTENT.footer.copyright}

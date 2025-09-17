@@ -29,7 +29,12 @@ const Contact: React.FC = () => {
 
   // Validate form fields
   const validateForm = (): boolean => {
-    const newErrors: FormData = { name: "", email: "", subject: "", message: "" };
+    const newErrors: FormData = {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    };
     let isValid = true;
 
     if (!formData.name.trim()) {
@@ -80,7 +85,8 @@ const Contact: React.FC = () => {
     setStatus({ type: null, message: "" });
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || // Prefer env variable
+      const apiUrl =
+        process.env.REACT_APP_API_URL || // Prefer env variable
         process.env.NODE_ENV === "development"
           ? "http://localhost:8000/send_quote.php"
           : "https://benoit.ae/send_quote.php";
@@ -153,15 +159,32 @@ const Contact: React.FC = () => {
               </p>
               <p>
                 <strong>{SITE_CONTENT.contact.info.phoneLabel}</strong>{" "}
-                {SITE_CONTENT.contact.info.phone}
+                <a
+                  href={`tel:${SITE_CONTENT.contact.info.phone}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.phone}
+                </a>
               </p>
               <p>
                 <strong>{SITE_CONTENT.contact.info.emailLabel}</strong>{" "}
-                {SITE_CONTENT.contact.info.email}
+                <a
+                  href={`mailto:${SITE_CONTENT.contact.info.email}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.email}
+                </a>
               </p>
               <p>
                 <strong>{SITE_CONTENT.contact.info.websiteLabel}</strong>{" "}
-                {SITE_CONTENT.contact.info.website}
+                <a
+                  href={SITE_CONTENT.contact.info.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  {SITE_CONTENT.contact.info.website}
+                </a>
               </p>
               <p>
                 <strong>{SITE_CONTENT.contact.info.hoursLabel}</strong>{" "}
