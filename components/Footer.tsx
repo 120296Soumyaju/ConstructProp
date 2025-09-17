@@ -89,7 +89,7 @@ const Footer: React.FC = () => {
               {SITE_CONTENT.footer.contactTitle}
             </h4>
             <ul className="space-y-2 text-white">
-              <li>{SITE_CONTENT.contact.info.address.full}</li>
+              <li className="text-white">{SITE_CONTENT.contact.info.address.full}</li>
               <li>
                 <a
                   href={`tel:${SITE_CONTENT.contact.info.phone}`}
