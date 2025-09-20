@@ -77,7 +77,7 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({
           srcSet={project.image.srcSet}
           sizes={project.image.sizes}
           alt={project.title}
-          className="w-full h-full md:h-80 object-cover rounded-t-lg"
+          className="w-full h-full md:h-full object-cover rounded-t-lg"
         />
         <div className="p-6 md:p-8">
           <p className="text-blue-500 font-semibold mb-2">{project.category}</p>
