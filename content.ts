@@ -41,30 +41,43 @@ const SERVICES: Service[] = [
 
 const PROJECTS: Project[] = [
   {
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop',
+    image: {
+      src: '/Poweron-1200.webp',
+      srcSet: '/Poweron-600.webp 600w, /Poweron-1200.webp 1200w, /Poweron-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
+    //image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop',
     title: 'Modern Office Complex',
     category: 'Commercial',
-    description: 'A state-of-the-art office complex featuring sustainable design, smart technology, and collaborative workspaces. This project involved complex structural engineering and high-end interior finishes to create a landmark business hub.',
-    location: 'Metropolis Financial District',
-    client: 'Innovate Corp',
+    description: 'A modern industrial facility spanning 4,600 SM, designed with efficiency, durability, and advanced systems integration. This project required precise structural execution and specialized finishes to deliver a high-performance manufacturing hub.',
+    location: 'Dubai, UAE',
+    client: 'Poweron Enertech',
   },
   {
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop',
-    title: 'Luxury Residential Home',
+    image: {
+      src: '/Villas-1200.webp',
+      srcSet: '/Villas-600.webp 600w, /Villas-1200.webp 1200w, /Villas-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
+    title: 'DAMAC Villas',
     category: 'Residential',
-    description: 'An exquisitely crafted custom home with bespoke details, luxury materials, and seamless integration of indoor and outdoor living spaces. Our team managed all aspects from foundation to final landscaping.',
-    location: 'Oakwood Estates',
-    client: 'The Smith Family',
+    description: 'A luxury residential villa spanning 2,600 SFT, blending elegant design, premium materials, and modern lifestyle features. This project incorporated meticulous detailing and refined finishes to create a distinguished private residence.',
+    location: 'Dubai, UAE',
+    client: 'Mr. Stijo Kallarackal',
   },
   {
-    image: 'https://marathon.in/wp-content/uploads/2022/05/blog_header-07-scaled.jpg',
-    title: 'City Infrastructure Project',
-    category: 'Public Works',
-    description: 'A large-scale public works project to construct a new city bridge, improving traffic flow and community access. The project required meticulous planning, adherence to strict safety protocols, and coordination with multiple municipal agencies.',
-    location: 'Central City',
-    client: 'Metropolis City Council',
+    image: {
+      src: '/Bedroom-1200.webp',
+      srcSet: '/Bedroom-600.webp 600w, /Bedroom-1200.webp 1200w, /Bedroom-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
+    title: 'Living Legends Villa - 45',
+    category: 'Residential',
+    description: 'An exclusive villa interior spanning 4,000 SFT, crafted with bespoke design, premium finishes, and refined detailing. This project delivered a seamless blend of modern elegance and functional luxury, creating a truly distinguished living environment.',
+    location: 'Living Legends Villa - 45',
+    client: 'Ms. Sujata',
   },
-  {
+  /*{
     image: 'https://www.cnu.org/sites/default/files/styles/public_square_feature_image/public/beverly-center-lighting.jpg?itok=gHo9QySd',
     title: 'Downtown Retail Center',
     category: 'Commercial',
@@ -87,7 +100,7 @@ const PROJECTS: Project[] = [
     description: 'Construction of a massive industrial warehouse and logistics center. The facility features high ceilings, advanced loading dock systems, and reinforced concrete flooring to support heavy-duty operations.',
     location: 'Eastern Industrial Park',
     client: 'LogiPro Solutions',
-  },
+  },*/
 ];
 
 /*const TESTIMONIALS: Testimonial[] = [

@@ -13,9 +13,11 @@ const ProjectCard: React.FC<{ project: Project; onSelect: () => void }> = ({
       className="group relative overflow-hidden rounded-lg shadow-lg text-left w-full block fade-in focus-visible"
     >
       <img
-        src={project.image}
+        src={project.image.src}
+        srcSet={project.image.srcSet}
+        sizes={project.image.sizes}
         alt={project.title}
-        className="w-full h-72 object-cover transform group-hover:scale-110 transition-transform duration-500"
+        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
         loading="lazy"
         decoding="async"
       />
@@ -71,9 +73,11 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({
           <CloseIcon className="w-6 h-6" />
         </button>
         <img
-          src={project.image}
+          src={project.image.src}
+          srcSet={project.image.srcSet}
+          sizes={project.image.sizes}
           alt={project.title}
-          className="w-full h-64 md:h-80 object-cover rounded-t-lg"
+          className="w-full h-full md:h-80 object-cover rounded-t-lg"
         />
         <div className="p-6 md:p-8">
           <p className="text-blue-500 font-semibold mb-2">{project.category}</p>

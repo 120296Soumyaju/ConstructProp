@@ -40,7 +40,11 @@ export const SERVICES: Service[] = [
 
 export const PROJECTS: Project[] = [
   {
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1920&auto=format&fit=crop',
+    image: {
+      src: '/Poweron-1200.webp',
+      srcSet: '/Poweron-400.webp 400w, /Poweron-800.webp 800w, /Poweron-1200.webp 1200w, /Poweron-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
     title: 'Modern Office Complex',
     category: 'Commercial',
     description: 'A state-of-the-art office complex featuring sustainable design, smart technology, and collaborative workspaces. This project involved complex structural engineering and high-end interior finishes to create a landmark business hub.',
@@ -48,7 +52,11 @@ export const PROJECTS: Project[] = [
     client: 'Innovate Corp',
   },
   {
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1920&auto=format&fit=crop',
+    image: {
+      src: '/Villas-1200.webp',
+      srcSet: '/Villas-400.webp 400w, /Villas-800.webp 800w, /Villas-1200.webp 1200w, /Villas-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
     title: 'Luxury Residential Home',
     category: 'Residential',
     description: 'An exquisitely crafted custom home with bespoke details, luxury materials, and seamless integration of indoor and outdoor living spaces. Our team managed all aspects from foundation to final landscaping.',
@@ -56,15 +64,19 @@ export const PROJECTS: Project[] = [
     client: 'The Smith Family',
   },
   {
-    image: 'https://marathon.in/wp-content/uploads/2022/05/blog_header-07-scaled.jpg',
+    image: {
+      src: '/Bedroom-1200.webp',
+      srcSet: '/Bedroom-400.webp 400w, /Bedroom-800.webp 800w, /Bedroom-1200.webp 1200w, /Bedroom-1920.webp 1920w',
+      sizes: '(max-width: 600px) 400px, (max-width: 1200px) 800px, (max-width: 1920px) 1200px, 1920px'
+    },
     title: 'City Infrastructure Project',
     category: 'Public Works',
     description: 'A large-scale public works project to construct a new city bridge, improving traffic flow and community access. The project required meticulous planning, adherence to strict safety protocols, and coordination with multiple municipal agencies.',
     location: 'Central City',
     client: 'Metropolis City Council',
   },
-  {
-    image: 'https://www.cnu.org/sites/default/files/styles/public_square_feature_image/public/beverly-center-lighting.jpg?itok=gHo9QySd',
+  /*{
+    image: '',
     title: 'Downtown Retail Center',
     category: 'Commercial',
     description: 'Development of a premier shopping destination in the heart of downtown. This project included the construction of multiple retail units, a central plaza, and a multi-level parking structure, all delivered on a tight schedule.',
@@ -85,8 +97,8 @@ export const PROJECTS: Project[] = [
     category: 'Industrial',
     description: 'Construction of a massive industrial warehouse and logistics center. The facility features high ceilings, advanced loading dock systems, and reinforced concrete flooring to support heavy-duty operations.',
     location: 'Eastern Industrial Park',
-    client: 'LogiPro Solutions',
-  },
+    client: 'LogiPro Solutionshttps://www.cnu.org/sites/default/files/styles/public_square_feature_image/public/beverly-center-lighting.jpg?itok=gHo9QySd',
+  },*/
 ];
 
 /*export const TESTIMONIALS: Testimonial[] = [

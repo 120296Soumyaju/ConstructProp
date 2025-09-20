@@ -12,8 +12,13 @@ export interface Service {
   description: string;
 }
 
+export interface ImageSource {
+  src: string;
+  srcSet: string;
+  sizes: string;
+}
 export interface Project {
-  image: string;
+  image: ImageSource;
   title: string;
   category: string;
   description: string;
