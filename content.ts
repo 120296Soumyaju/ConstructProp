@@ -200,7 +200,7 @@ export const SITE_CONTENT = {
         emailLabel: 'Email:',
         email: 'admin@benoit.ae',    
         websiteLabel: 'Website:',
-        website: 'www.btlme.ae',
+        website: 'https://benoit.ae',
         hoursLabel: 'Business Hours:',
         hours: 'Mon-Fri, 8:30 AM - 5:30 PM',
     },
